@@ -17,22 +17,22 @@ public class TodoService{
 	private TodoRepository repository;
 	
 	public String testService() {
-		//TodoEntity »ı¼º
+		//TodoEntity ìƒì„±
 		TodoEntity entity = TodoEntity.builder().title("My first todo item").build();
-		//TodoEntity ÀúÀå
+		//TodoEntity ì €ì¥
 		repository.save(entity);
-		//TodoEntity °Ë»ö
+		//TodoEntity ê²€ìƒ‰
 		TodoEntity savedEntity = repository.findById(entity.getId()).get();
 		return savedEntity.getTitle();
 	}
 
 	public List<TodoEntity> create(final TodoEntity entity){
-		// Validations
+		// Validation
 		validate(entity);
-		//entity¸¦ database¿¡ ÀúÀåÇÑ´Ù.
+		//entityë¥¼ databaseì— ì €ì¥í•œë‹¤.
 		repository.save(entity);
 		log.info("Entity id : {} is saved.", entity.getId());
-		//ÀúÀåÇÑ entity¸¦ Æ÷ÇÔÇÏ´Â »õ list¸¦ returnÇÑ´Ù.
+		//ì €ì¥í•œ entityë¥¼ í¬í•¨í•˜ëŠ” ìƒˆ listë¥¼ returní•œë‹¤.
 		return repository.findByUserId(entity.getUserId());
 	}
 	
@@ -41,19 +41,19 @@ public class TodoService{
 	}
 	
 	public List<TodoEntity> update(TodoEntity entity){
-		// (1) ÀúÀåÇÒ ¿£Æ¼Æ¼°¡ À¯È¿ÇÑÁö È®ÀÎÇÑ´Ù.
+		//Validation
 		validate(entity);
 		
-		// (2) ³Ñ°Ü¹ŞÀº ¿£Æ¼Æ¼ id¸¦ ÀÌ¿ëÇØ TodoEntity¸¦ °¡Á®¿Â´Ù. Á¸ÀçÇÏÁö ¾Ê´Â ¿£Æ¼Æ¼´Â ¾÷µ¥ÀÌÆ®ÇÒ ¼ö ¾ø±â ¶§¹®ÀÌ´Ù.
+		//ë„˜ê²¨ë°›ì€ ì—”í‹°í‹° idë¥¼ ì´ìš©í•´ TodoEntityë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 		final Optional<TodoEntity> original = repository.findById(entity.getId());
 		
 		if(original.isPresent()) {
-			// (3) ¹İÈ¯µÈ TodoEntity°¡ Á¸ÀçÇÏ¸é °ªÀ» »õ entity °ªÀ¸·Î µ¤¾î ¾º¿î´Ù.
+			//ë°˜í™˜ëœ TodoEntityê°€ ì¡´ì¬í•˜ë©´, í•´ë‹¹ ê°’ì„ ìƒˆ entity ê°’ìœ¼ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			final TodoEntity todo = original.get();
 			todo.setTitle(entity.getTitle());
 			todo.setDone(entity.isDone());
 			
-			// (4) µ¥ÀÌÅÍº£ÀÌ½º¿¡ »õ °ªÀ» ÀúÀåÇÑ´Ù.
+			//dtabaseì— ìƒˆë¡œìš´ entityë¥¼ ì €ì¥í•œë‹¤.
 			repository.save(todo);
 		}
 		
@@ -61,26 +61,25 @@ public class TodoService{
 	}
 	
 	public List<TodoEntity> delete(TodoEntity entity){
-		// (1) ÀúÀåÇÒ ¿£Æ¼Æ¼°¡ À¯È¿ÇÑÁö È®ÀÎÇÑ´Ù.
+		//Validation
 		validate(entity);
 		
 		try {
-			// (2) ¿£Æ¼Æ¼¸¦ »èÁ¦ÇÑ´Ù.
+			//entity ì‚­ì œ			
 			repository.delete(entity);
 		}catch(Exception e) {
-			// (3) exception ¹ß»ı ½Ã id¿Í exceptionÀ» ·Î±ëÇÑ´Ù.
+			//exception ë°œìƒ ì‹œ idì™€ exceptionì„ ë¡œê¹…í•œë‹¤.
 			log.error("error deleting entity ", entity.getId(), e);
 			
-			// (4) ÄÁÆ®·Ñ·¯·Î exceptionÀ» º¸³½´Ù.
-			// µ¥ÀÌÅÍº£ÀÌ½º ³»ºÎ ·ÎÁ÷À» Ä¸½¶È­ÇÏ·Á¸é e¸¦ ¸®ÅÏÇÏÁö ¾Ê°í »õ exception ¿ÀºêÁ§Æ®¸¦ ¸®ÅÏÇÑ´Ù.
+			//ì»¨íŠ¸ë¡¤ëŸ¬ë¡œ exceptionì„ ë³´ë‚¸ë‹¤.
 			throw new RuntimeException("error deleting entity " + entity.getId());
 		}
 		
-		// (5) »õ Todo ¸®½ºÆ®¸¦ °¡Á®¿Í ¸®ÅÏÇÑ´Ù.
+		//ê°±ì‹ ëœ Todo ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì™€ ë¦¬í„´í•œë‹¤.
 		return retrieve(entity.getUserId());
 	}
 	
-	//¸®ÆÑÅä¸µÇÑ ¸Å¼­µå
+	//ë¦¬íŒ©í† ë§í•œ ë§¤ì„œë“œ
 	private void validate(final TodoEntity entity) {
 		//Validations
 		if(entity == null) {
