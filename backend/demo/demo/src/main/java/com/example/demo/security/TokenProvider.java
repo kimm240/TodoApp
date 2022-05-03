@@ -17,30 +17,16 @@ public class TokenProvider{
 	private static final String SECRET_KEY = "NMA8JPctFuna59f5";
 	
 	public String create(UserEntity userEntity) {
-		//±âÇÑÀº Áö±İºÎÅÍ 1ÀÏ·Î ¼³Á¤
+		//ê¸°í•œì€ ì§€ê¸ˆë¶€í„° 1ì¼ë¡œ ì„¤ì •
 		Date expiryDate = Date.from(
 				Instant.now()
 				.plus(1, ChronoUnit.DAYS));
 		
-		/*
-		{ // header
-		  "alg":"HS512"
-		}.
-		{ // payload
-		  "sub":"40288093784915d201784916a40c0001",
-		  "iss": "demo app",
-		  "iat":1595733657,
-		  "exp":1596597657
-		}.
-		// SECRET_KEY¸¦ ÀÌ¿ëÇØ ¼­¸íÇÑ ºÎºĞ
-		Nn4d1MOVLZg79sfFACTIpCPKqWmpZMZQsbNrXdJJNWkRv50_l7bPLQPwhMobT4vBOG6Q3JYjhDrKFlBSaUxZOg
-		 */
-		
-		//JWT Token »ı¼º
+		//JWT Token ìƒì„±
 		return Jwts.builder()
-				//header¿¡ µé¾î°¥ ³»¿ë ¹× ¼­¸íÀ» ÇÏ±â À§ÇÑ SECRET_KEY
+				//headerì— ë“¤ì–´ê°ˆ ë‚´ìš© ë° ì„œëª…ì„ í•˜ê¸° ìœ„í•œ SECRET_KEY
 				.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-				//payload¿¡ µé¾î°¥ ³»¿ë
+				//payloadì— ë“¤ì–´ê°ˆ ë‚´ìš©
 				.setSubject(userEntity.getId()) // sub
 				.setIssuer("demo app") // iss
 				.setIssuedAt(new Date()) // iat
@@ -50,10 +36,10 @@ public class TokenProvider{
 	
 	
 	public String validateAndGetUserId(String token) {
-		// parseClaimsJws ¸Ş¼­µå°¡ Base64·Î µğÄÚµù ¹× ÆÄ½Ì
-		// Çì´õ¿Í ÆäÀÌ·Îµå¸¦ setSigningKey·Î ³Ñ¾î¿Â ½ÃÅ©¸´À» ÀÌ¿ëÇØ ¼­¸íÇÑ ÈÄ tokenÀÇ ¼­¸í°ú ºñ±³
-		// À§Á¶µÇÁö ¾Ê¾Ò´Ù¸é ÆäÀÌ·Îµå(Claims) ¸®ÅÏ, À§Á¶¶ó¸é ¿¹¿Ü¸¦ ³¯¸²
-		// ±×Áß ¿ì¸®´Â userId°¡ ÇÊ¿äÇÏ¹Ç·Î getBody¸¦ ºÎ¸¥´Ù.
+		// parseClaimsJws ë©”ì„œë“œê°€ Base64ë¡œ ë””ì½”ë”© ë° íŒŒì‹±
+		// í—¤ë”ì™€ í˜ì´ë¡œë“œë¥¼ setSigningKeyë¡œ ë„˜ì–´ì˜¨ ì‹œí¬ë¦¿ì„ ì´ìš©í•´ ì„œëª…í•œ í›„ tokenì˜ ì„œëª…ê³¼ ë¹„êµ
+		// ìœ„ì¡°ë˜ì§€ ì•Šì•˜ë‹¤ë©´ í˜ì´ë¡œë“œ(Claims) ë¦¬í„´, ìœ„ì¡°ë¼ë©´ ì˜ˆì™¸ë¥¼ ë‚ ë¦¼
+		// ê·¸ì¤‘ ìš°ë¦¬ëŠ” userIdê°€ í•„ìš”í•˜ë¯€ë¡œ getBodyë¥¼ ë¶€ë¥¸ë‹¤.
 		Claims claims = Jwts.parser()
 				.setSigningKey(SECRET_KEY)
 				.parseClaimsJws(token)
