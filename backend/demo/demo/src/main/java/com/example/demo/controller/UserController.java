@@ -31,14 +31,14 @@ public class UserController{
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
 		try {
-			//¿äÃ»À» ÀÌ¿ëÇØ ÀúÀåÇÒ »ç¿ëÀÚ ¸¸µé±â
+			//ìš”ì²­ì„ ì´ìš©í•´ ì €ì¥í•  ì‚¬ìš©ì ë§Œë“¤ê¸°
 			UserEntity user = UserEntity.builder()
 					.email(userDTO.getEmail())
 					.username(userDTO.getUsername())
 					.password(passwordEncoder.encode(userDTO.getPassword()))
 					.build();
 			
-			//¼­ºñ½º¸¦ ÀÌ¿ëÇØ repository¿¡ »ç¿ëÀÚ ÀúÀå
+			//ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•´ repositoryì— ì‚¬ìš©ì ì €ì¥
 			UserEntity registeredUser = userService.create(user);
 			UserDTO responseUserDTO = UserDTO.builder()
 					.email(registeredUser.getEmail())
@@ -48,9 +48,6 @@ public class UserController{
 			
 			return ResponseEntity.ok().body(responseUserDTO);
 		} catch (Exception e) {
-			//»ç¿ëÀÚ Á¤º¸´Â Ç×»ó ÇÏ³ªÀÌ¹Ç·Î ¸®½ºÆ®·Î ¸¸µé¾î¾ß ÇÏ´Â ResponseDTO¸¦ »ç¿ëÇÏÁö ¾Ê°í
-			//±×³É UserDTO ¸®ÅÏ
-			
 			ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
 			return ResponseEntity
 					.badRequest()
@@ -66,7 +63,7 @@ public class UserController{
 				passwordEncoder);
 		
 		if(user != null) {
-			//ÅäÅ« »ı¼º
+			//í† í° ìƒì„±
 			final String token = tokenProvider.create(user);
 			
 			final UserDTO responseUserDTO = UserDTO.builder()
