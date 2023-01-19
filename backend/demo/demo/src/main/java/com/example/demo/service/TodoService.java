@@ -16,6 +16,7 @@ public class TodoService{
 	@Autowired
 	private TodoRepository repository;
 
+	@Transactional
 	public List<TodoEntity> create(final TodoEntity entity){
 		// Validation
 		validate(entity);
@@ -26,10 +27,12 @@ public class TodoService{
 		return repository.findByUserId(entity.getUserId());
 	}
 	
+	@Transactional
 	public List<TodoEntity> retrieve(final String userId){
 		return repository.findByUserId(userId);
 	}
 	
+	@Transactional
 	public List<TodoEntity> update(TodoEntity entity){
 		//Validation
 		validate(entity);
@@ -44,12 +47,13 @@ public class TodoService{
 			todo.setDone(entity.isDone());
 			
 			//dtabase에 새로운 entity를 저장한다.
-			repository.save(todo);
+			//repository.save(todo);
 		}
 		
 		return retrieve(entity.getUserId());
 	}
 	
+	@Transactional
 	public List<TodoEntity> delete(TodoEntity entity){
 		//Validation
 		validate(entity);
