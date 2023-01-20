@@ -31,7 +31,6 @@ public class TodoService{
 		return repository.findByUserId(userId);
 	}
 	
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Transactional
 	public List<TodoEntity> update(TodoEntity entity){
 		//Validation
