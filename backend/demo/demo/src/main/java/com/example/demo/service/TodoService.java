@@ -38,7 +38,8 @@ public class TodoService{
 		validate(entity);
 		
 		//넘겨받은 엔티티 id를 이용해 TodoEntity를 가져온다.
-		final Optional<TodoEntity> original = repository.findById(entity.getId());
+		//final Optional<TodoEntity> original = repository.findById(entity.getId());
+		final Optional<TodoEntity> original = repository.findByUserIdWithPessimisticLock(entity.getId());
 		
 		if(original.isPresent()) {
 			//반환된 TodoEntity가 존재하면, 해당 값을 새 entity 값으로 바꿔준다.
