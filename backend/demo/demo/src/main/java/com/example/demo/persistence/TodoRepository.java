@@ -18,6 +18,6 @@ public interface TodoRepository extends JpaRepository<TodoEntity, String>{
 	@Lock(value = LockModeType.OPTIMISTIC)
 	List<TodoEntity> findByUserIdWithOptimisticLock(String userId);
 	
-	@Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    	List<TodoEntity> findByUserIdWithPessimisticLock(String userId);
+	//@Lock(value = LockModeType.PESSIMISTIC_WRITE)
+    	//List<TodoEntity> findByUserIdWithPessimisticLock(String userId);
 }
