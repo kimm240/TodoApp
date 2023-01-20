@@ -21,8 +21,11 @@ public class TodoEntity{
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy ="uuid")
-	private String id; //¿ÀºêÁ§Æ®ÀÇ ¾ÆÀÌµğ
-	private String userId; //ÀÌ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ »ç¿ëÀÚÀÇ ¾ÆÀÌµğ
-	private String title; //example: ¿îµ¿ÇÏ±â
-	private boolean done; //true: todo¸¦ ¿Ï·áÇÑ °æ¿ì
+	private String id; //ì˜¤ë¸Œì íŠ¸ì˜ ì•„ì´ë””
+	private String userId; //ì´ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œ ì‚¬ìš©ìì˜ ì•„ì´ë””
+	private String title; //example: ìš´ë™í•˜ê¸°
+	private boolean done; //true: todoë¥¼ ì™„ë£Œí•œ ê²½ìš°
+	
+	@Version
+    	private Long version;
 }
