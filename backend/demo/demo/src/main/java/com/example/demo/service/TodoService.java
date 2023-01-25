@@ -12,12 +12,12 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class TodoService{
 	
 	@Autowired
 	private TodoRepository repository;
 
-	@Transactional
 	public List<TodoEntity> create(final TodoEntity entity){
 		// Validation
 		validate(entity);
@@ -56,7 +56,6 @@ public class TodoService{
 	}
 	*/
 	
-	@Transactional
 	public List<TodoEntity> update(TodoEntity entity) throws InterruptedException {
 		//Validation
 		validate(entity);
@@ -86,7 +85,6 @@ public class TodoService{
 		}
 	}
 	
-	@Transactional
 	public List<TodoEntity> delete(TodoEntity entity){
 		//Validation
 		validate(entity);
