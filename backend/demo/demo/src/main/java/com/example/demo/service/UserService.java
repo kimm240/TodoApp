@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class UserService {
 	
 	@Autowired
@@ -34,7 +35,7 @@ public class UserService {
 			final PasswordEncoder encoder) {
 		final UserEntity originalUser = userRepository.findByEmail(email);
 		
-		//matches method¸¦ ÀÌ¿ëÇØ ÆĞ½º¿öµå°¡ °°ÀºÁö È®ÀÎ
+		//matches methodë¥¼ ì´ìš©í•´ íŒ¨ìŠ¤ì›Œë“œê°€ ê°™ì€ì§€ í™•ì¸
 		if(originalUser != null &&
 				encoder.matches(password, 
 						originalUser.getPassword())) {
