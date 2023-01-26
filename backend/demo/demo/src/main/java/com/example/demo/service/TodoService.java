@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@Transactional
 public class TodoService{
 	
 	@Autowired
