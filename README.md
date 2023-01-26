@@ -11,8 +11,8 @@
 
 ![image](https://user-images.githubusercontent.com/67453494/214787882-ec566ee8-c1b8-4281-8de1-9c84bdaab8cd.png)
 
--Security와, 인증 서버의 확장성 문제 해결을 위해 JSON Web Token을 사용하였습니다.
+-Security와, 인증 서버의 확장성 문제 해결을 위해 **JSON Web Token**을 사용하였습니다.
 
--메서드의 트랜잭션화를 위해 @Transactional을 사용하였습니다.
+-메서드의 트랜잭션화를 위해 **@Transactional**을 사용하였습니다.
 
--동시성 문제를 해결하기 위해 낙관적 락을 사용하였습니다.
+-동시성 문제를 해결하기 위해 **낙관적 락**을 사용하였습니다.
