@@ -17,6 +17,7 @@ public class TodoService{
 	@Autowired
 	private TodoRepository repository;
 
+	@Transactional
 	public List<TodoEntity> create(final TodoEntity entity){
 		// Validation
 		validate(entity);
@@ -27,6 +28,7 @@ public class TodoService{
 		return repository.findByUserId(entity.getUserId());
 	}
 	
+	@Transactional
 	public List<TodoEntity> retrieve(final String userId){
 		return repository.findByUserId(userId);
 	}
@@ -60,6 +62,7 @@ public class TodoService{
 		}
 	}
 	
+	@Transactional
 	public List<TodoEntity> delete(TodoEntity entity){
 		//Validation
 		validate(entity);
