@@ -33,33 +33,25 @@ public class TodoService{
 		return repository.findByUserId(userId);
 	}
 	
+	@Transactional
 	public List<TodoEntity> update(TodoEntity entity) throws InterruptedException {
 		//Validation
 		validate(entity);
 		
-		while (true) {
-		    try {
-			//넘겨받은 엔티티 id를 이용해 TodoEntity를 가져온다.
-			//final Optional<TodoEntity> original = repository.findById(entity.getId());
-			final Optional<TodoEntity> original = repository.findByUserIdWithOptimisticLock(entity.getId());
-
-			if(original.isPresent()) {
-				//반환된 TodoEntity가 존재하면, 해당 값을 새 entity 값으로 바꿔준다.
-				final TodoEntity todo = original.get();
-				todo.setTitle(entity.getTitle());
-				todo.setDone(entity.isDone());
-
-				//dtabase에 새로운 entity를 저장한다.
-				repository.save(todo);
-			}
-		
-			return retrieve(entity.getUserId());
+		//넘겨받은 엔티티 id를 이용해 TodoEntity를 가져온다.
+		final Optional<TodoEntity> original = repository.findById(entity.getId());
 			
-			break;
-		    } catch (Exception e) {
-			Thread.sleep(50);
-		    }
+		if(original.isPresent()) {
+			//반환된 TodoEntity가 존재하면, 해당 값을 새 entity 값으로 바꿔준다.
+			final TodoEntity todo = original.get();
+			todo.setTitle(entity.getTitle());
+			todo.setDone(entity.isDone());
+
+			//dtabase에 새로운 entity를 저장한다.
+			repository.save(todo);
 		}
+		
+		return retrieve(entity.getUserId());	
 	}
 	
 	@Transactional
