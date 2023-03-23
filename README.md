@@ -5,7 +5,7 @@
 
 -Todo 생성, Todo 리스트 나열, Todo 수정, Todo 삭제, 회원가입/로그인/로그아웃 기능을 구현했습니다.   
 
--VERSION: spring boot: 2.4.6 / lombok: 1.18.6 / java: 8   
+-VERSION: spring boot: 2.4.6 / lombok: 1.18.6 / java: 8 / redis: 
 
 -코드는 Layered Architecture Pattern으로 나눴습니다.
 
