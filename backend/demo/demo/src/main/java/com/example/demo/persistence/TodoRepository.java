@@ -13,9 +13,9 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<TodoEntity, String>{
 	List<TodoEntity> findByUserId(String userId);
 	
-	@Lock(value = LockModeType.OPTIMISTIC)
-	@Query("select * from Todo t where t.userId = ?1")
-	List<TodoEntity> findByUserIdWithOptimisticLock(String userId);
+	//@Lock(value = LockModeType.OPTIMISTIC)
+	//@Query("select * from Todo t where t.userId = ?1")
+	//List<TodoEntity> findByUserIdWithOptimisticLock(String userId);
 	
 	//@Lock(value = LockModeType.PESSIMISTIC_WRITE)
     	//List<TodoEntity> findByUserIdWithPessimisticLock(String userId);
