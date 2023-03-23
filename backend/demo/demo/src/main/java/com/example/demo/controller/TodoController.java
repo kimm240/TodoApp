@@ -14,6 +14,7 @@ import com.example.demo.dto.ResponseDTO;
 import com.example.demo.dto.TodoDTO;
 import com.example.demo.model.TodoEntity;
 import com.example.demo.service.TodoService;
+import com.example.demo.facade.RedissionLockTodoFacade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("todo")
 public class TodoController{
-	
-	//117p
+
 	@Autowired
 	private TodoService service;
 	
+	@Autowired
+	private RedissonLockTodoFacade redissonLockTodoFacade;
 	
 	@PostMapping
 	public ResponseEntity<?> createTodo(
@@ -89,7 +91,7 @@ public class TodoController{
 		entity.setUserId(userId);
 		
 		// (2) 서비스를 이용해 entity를 업데이트한다.
-		List<TodoEntity> entities = service.update(entity);
+		List<TodoEntity> entities = redissonLockTodoFacade.update(entity);
 		
 		// (3) 자바 스트림을 이용해 리턴된 엔티티 리스트를 TodoDTO 리스트로 변환한다.
 		List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
