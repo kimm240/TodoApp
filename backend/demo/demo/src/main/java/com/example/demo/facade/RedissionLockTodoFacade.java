@@ -14,6 +14,7 @@ public class RedissonLockTodoFacade {
 
     private RedissonClient redissonClient;
 
+    @Autowired
     private todoService todoService;
 
     public RedissonLockStockFacade(RedissonClient redissonClient, TodoService todoService) {
@@ -21,7 +22,7 @@ public class RedissonLockTodoFacade {
         this.todoService = todoService;
     }
 
-    public void update(TodoEntity entity) {
+    public List<TodoEntity> update(TodoEntity entity) {
         RLock lock = redissonClient.getLock(key.toString());
 
         try {
@@ -33,7 +34,7 @@ public class RedissonLockTodoFacade {
             }
 
             List<TodoEntity> entities = todoService.update(entity);
-	return entities;
+	    return entities;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
