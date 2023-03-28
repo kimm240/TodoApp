@@ -9,7 +9,7 @@
 
 ![image](https://user-images.githubusercontent.com/67453494/214787882-ec566ee8-c1b8-4281-8de1-9c84bdaab8cd.png)
 
--DI를 고려하여 구현하였습니다.
+-DI를 활용하여 구현하였습니다.
 
 -Security와, 인증 서버의 확장성 문제 해결을 위해 **JSON Web Token**을 사용하였습니다.
 
@@ -26,7 +26,9 @@
 -강의: 
 
 최상용, 『재고시스템으로 알아보는 동시성이슈 해결방법』, 인프런
+
 https://www.inflearn.com/course/%EB%8F%99%EC%8B%9C%EC%84%B1%EC%9D%B4%EC%8A%88-%EC%9E%AC%EA%B3%A0%EC%8B%9C%EC%8A%A4%ED%85%9C#
 
-『[10분 테크톡]리차드의 @Transactional』, youtube
+『[10분 테크톡]리차드의 @Transactional』, Youtube
+
 https://www.youtube.com/watch?v=taAp_u83MwA
