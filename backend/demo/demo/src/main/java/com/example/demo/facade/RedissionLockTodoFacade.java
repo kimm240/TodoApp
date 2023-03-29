@@ -11,16 +11,11 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedissonLockTodoFacade {
-
+    @Autowired
     private RedissonClient redissonClient;
 
     @Autowired
     private todoService todoService;
-
-    public RedissonLockStockFacade(RedissonClient redissonClient, TodoService todoService) {
-        this.redissonClient = redissonClient;
-        this.todoService = todoService;
-    }
 
     public List<TodoEntity> update(TodoEntity entity) {
         RLock lock = redissonClient.getLock(key.toString());
