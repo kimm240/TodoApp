@@ -19,7 +19,7 @@ public class RedissonLockTodoFacade {
     private todoService todoService;
 
     public List<TodoEntity> update(TodoEntity entity) {
-        RLock lock = redissonClient.getLock(key.toString());
+        RLock lock = redissonClient.getLock(entity.getId().toString());
 
         try {
             boolean available = lock.tryLock(10, 1, TimeUnit.SECONDS);
