@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,9 +15,8 @@ import com.example.demo.dto.ResponseDTO;
 import com.example.demo.dto.TodoDTO;
 import com.example.demo.model.TodoEntity;
 import com.example.demo.service.TodoService;
-import com.example.demo.facade.RedissionLockTodoFacade;
+import com.example.demo.facade.RedissonLockTodoFacade;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
