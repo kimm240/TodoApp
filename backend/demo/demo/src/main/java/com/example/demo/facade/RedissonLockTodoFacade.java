@@ -27,7 +27,7 @@ public class RedissonLockTodoFacade {
             boolean available = lock.tryLock(10, 1, TimeUnit.SECONDS);
 
             if (!available) {
-                System.out.println("lock �쉷�뱷 �떎�뙣");
+                System.out.println("lock 획득 실패");
                 return null;
             }
 
